@@ -16,6 +16,9 @@ namespace TD.HomeScreen.Footer
 
         private bool _selected;
         private bool _locked;
+        
+        private static readonly int LockedId = Animator.StringToHash("Locked");
+        private static readonly int SelectedId = Animator.StringToHash("Selected");
 
         private void Awake()
         {
@@ -34,13 +37,13 @@ namespace TD.HomeScreen.Footer
         {
             _locked = locked;
             footerBtn.interactable = _locked == false;
-            animator.SetBool("Locked", _locked);
+            animator.SetBool(LockedId, _locked);
         }
 
         public void SetSelect(bool selected)
         {
             _selected = selected;
-            animator.SetBool("Selected", _selected);
+            animator.SetBool(SelectedId, _selected);
         }
     }
 }

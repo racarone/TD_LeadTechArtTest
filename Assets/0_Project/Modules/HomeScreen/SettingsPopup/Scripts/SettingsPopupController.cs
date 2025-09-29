@@ -6,9 +6,11 @@ namespace TD.HomeScreen.SettingsPopup
     {
         [SerializeField] private Animator animator;
 
+        private static readonly int CloseId = Animator.StringToHash("Close");
+        
         public void OnCloseButtonClicked()
         {
-            animator.SetTrigger("Close");
+            animator.SetTrigger(CloseId);
         }
         
         // Method called through animation event when the close animation is completed
