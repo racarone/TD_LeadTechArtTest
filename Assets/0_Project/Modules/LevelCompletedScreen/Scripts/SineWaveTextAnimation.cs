@@ -6,6 +6,7 @@ namespace TD.LevelCompletedScreen
     /// <summary>
     /// Applies a sine wave animation to the text vertices of a <see cref="TMP_Text"/> component.
     /// </summary>
+    [RequireComponent(typeof(TMP_Text))]
     public class SineWaveTextAnimation : MonoBehaviour
     {
         [Min(0f)] [Tooltip("How far the letters float up and down")]
