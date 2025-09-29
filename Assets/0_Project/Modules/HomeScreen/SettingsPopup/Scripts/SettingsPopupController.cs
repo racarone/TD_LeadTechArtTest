@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class SettingsPopupController : MonoBehaviour
+namespace TD.HomeScreen.SettingsPopup
 {
-
-    [SerializeField] private Animator animator;
-
-    public void OnCloseButtonClicked()
+    public class SettingsPopupController : MonoBehaviour
     {
-        animator.SetTrigger("Close");
-    }
+
+        [SerializeField] private Animator animator;
+
+        public void OnCloseButtonClicked()
+        {
+            animator.SetTrigger("Close");
+        }
 
 
-// Method called through animation event when the close animation is completed
+    // Method called through animation event when the close animation is completed
 
-    public void OnClosedAnimationCompleted()
-    {
-        gameObject.SetActive(false);
+        public void OnClosedAnimationCompleted()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

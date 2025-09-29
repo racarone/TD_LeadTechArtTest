@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NavigationController : MonoBehaviour
+namespace TD.Shared
 {
-    
-    //  Load scene by name
-    public void LoadScene(string sceneName)
+    public class NavigationController : MonoBehaviour
     {
-        SceneManager.LoadScene(sceneName);
+        //  Load scene by name
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
-
 }

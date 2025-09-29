@@ -1,6 +1,7 @@
 using UnityEngine;
 
-
+namespace TD.Shared
+{
     /// <summary>
     /// Safe area implementation for notched mobile devices. Usage:
     ///  (1) Add this component to the top level of any GUI panel.
@@ -11,6 +12,7 @@ using UnityEngine;
     public class SafeArea : MonoBehaviour
     {
         #region Simulations
+
         /// <summary>
         /// Simulation device that uses safe area due to a physical notch or software home bar. For use in Editor only.
         /// </summary>
@@ -20,22 +22,27 @@ using UnityEngine;
             /// Don't use a simulated safe area - GUI will be full screen as normal.
             /// </summary>
             None,
+
             /// <summary>
             /// Simulate a custom simulated safe area
             /// </summary>
             Custom,
+
             /// <summary>
             /// Simulate the iPhone X and Xs (identical safe areas).
             /// </summary>
             iPhoneX,
+
             /// <summary>
             /// Simulate the iPhone Xs Max and XR (identical safe areas).
             /// </summary>
             iPhoneXsMax,
+
             /// <summary>
             /// Simulate the Google Pixel 3 XL using landscape left.
             /// </summary>
             Pixel3XL_LSL,
+
             /// <summary>
             /// Simulate the Google Pixel 3 XL using landscape right.
             /// </summary>
@@ -57,8 +64,8 @@ using UnityEngine;
         /// </summary>
         Rect[] NSA_iPhoneX = new Rect[]
         {
-            new Rect (0f, 102f / 2436f, 1f, 2202f / 2436f),  // Portrait
-            new Rect (132f / 2436f, 63f / 1125f, 2172f / 2436f, 1062f / 1125f)  // Landscape
+            new Rect(0f, 102f / 2436f, 1f, 2202f / 2436f), // Portrait
+            new Rect(132f / 2436f, 63f / 1125f, 2172f / 2436f, 1062f / 1125f) // Landscape
         };
 
         /// <summary>
@@ -71,8 +78,8 @@ using UnityEngine;
         /// </summary>
         Rect[] NSA_iPhoneXsMax = new Rect[]
         {
-            new Rect (0f, 102f / 2688f, 1f, 2454f / 2688f),  // Portrait
-            new Rect (132f / 2688f, 63f / 1242f, 2424f / 2688f, 1179f / 1242f)  // Landscape
+            new Rect(0f, 102f / 2688f, 1f, 2454f / 2688f), // Portrait
+            new Rect(132f / 2688f, 63f / 1242f, 2424f / 2688f, 1179f / 1242f) // Landscape
         };
 
         /// <summary>
@@ -85,8 +92,8 @@ using UnityEngine;
         /// </summary>
         Rect[] NSA_Pixel3XL_LSL = new Rect[]
         {
-            new Rect (0f, 0f, 1f, 2789f / 2960f),  // Portrait
-            new Rect (0f, 0f, 2789f / 2960f, 1f)  // Landscape
+            new Rect(0f, 0f, 1f, 2789f / 2960f), // Portrait
+            new Rect(0f, 0f, 2789f / 2960f, 1f) // Landscape
         };
 
         /// <summary>
@@ -94,46 +101,53 @@ using UnityEngine;
         /// </summary>
         Rect[] NSA_Pixel3XL_LSR = new Rect[]
         {
-            new Rect (0f, 0f, 1f, 2789f / 2960f),  // Portrait
-            new Rect (171f / 2960f, 0f, 2789f / 2960f, 1f)  // Landscape
+            new Rect(0f, 0f, 1f, 2789f / 2960f), // Portrait
+            new Rect(171f / 2960f, 0f, 2789f / 2960f, 1f) // Landscape
         };
 
         public static Rect[] NSA_Custom = new Rect[] // default is like iPhoneX
         {
-            new Rect (0f, 102f / 2436f, 1f, 2202f / 2436f),  // Portrait
-            new Rect (132f / 2436f, 63f / 1125f, 2172f / 2436f, 1062f / 1125f)  // Landscape
+            new Rect(0f, 102f / 2436f, 1f, 2202f / 2436f), // Portrait
+            new Rect(132f / 2436f, 63f / 1125f, 2172f / 2436f, 1062f / 1125f) // Landscape
         };
+
         #endregion
 
         RectTransform Panel;
-        Rect LastSafeArea = new Rect (0, 0, 0, 0);
-        Vector2Int LastScreenSize = new Vector2Int (0, 0);
+        Rect LastSafeArea = new Rect(0, 0, 0, 0);
+        Vector2Int LastScreenSize = new Vector2Int(0, 0);
         ScreenOrientation LastOrientation = ScreenOrientation.AutoRotation;
-        [SerializeField] bool ConformX = true;  // Conform to screen safe area on X-axis (default true, disable to ignore)
-        [SerializeField] bool ConformY = true;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
-        [SerializeField] bool Logging = false;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
 
-        void Awake ()
+        [SerializeField]
+        bool ConformX = true; // Conform to screen safe area on X-axis (default true, disable to ignore)
+
+        [SerializeField]
+        bool ConformY = true; // Conform to screen safe area on Y-axis (default true, disable to ignore)
+
+        [SerializeField]
+        bool Logging = false; // Conform to screen safe area on Y-axis (default true, disable to ignore)
+
+        void Awake()
         {
-            Panel = GetComponent<RectTransform> ();
+            Panel = GetComponent<RectTransform>();
 
             if (Panel == null)
             {
-                Debug.LogError ("Cannot apply safe area - no RectTransform found on " + name);
-                Destroy (gameObject);
+                Debug.LogError("Cannot apply safe area - no RectTransform found on " + name);
+                Destroy(gameObject);
             }
 
-            Refresh ();
+            Refresh();
         }
 
-        void Update ()
+        void Update()
         {
-            Refresh ();
+            Refresh();
         }
 
-        void Refresh ()
+        void Refresh()
         {
-            Rect safeArea = GetSafeArea ();
+            Rect safeArea = GetSafeArea();
 
             if (safeArea != LastSafeArea
                 || Screen.width != LastScreenSize.x
@@ -146,61 +160,62 @@ using UnityEngine;
                 LastScreenSize.y = Screen.height;
                 LastOrientation = Screen.orientation;
 
-                ApplySafeArea (safeArea);
+                ApplySafeArea(safeArea);
             }
         }
 
-        Rect GetSafeArea ()
+        Rect GetSafeArea()
         {
             Rect safeArea = Screen.safeArea;
 
             if (Application.isEditor && Sim != SimDevice.None)
             {
-                Rect nsa = new Rect (0, 0, Screen.width, Screen.height);
+                Rect nsa = new Rect(0, 0, Screen.width, Screen.height);
 
                 switch (Sim)
                 {
                     case SimDevice.Custom:
-                        if (Screen.height > Screen.width)  // Portrait
+                        if (Screen.height > Screen.width) // Portrait
                             nsa = NSA_Custom[0];
-                        else  // Landscape
+                        else // Landscape
                             nsa = NSA_Custom[1];
                         break;
                     case SimDevice.iPhoneX:
-                        if (Screen.height > Screen.width)  // Portrait
+                        if (Screen.height > Screen.width) // Portrait
                             nsa = NSA_iPhoneX[0];
-                        else  // Landscape
+                        else // Landscape
                             nsa = NSA_iPhoneX[1];
                         break;
                     case SimDevice.iPhoneXsMax:
-                        if (Screen.height > Screen.width)  // Portrait
+                        if (Screen.height > Screen.width) // Portrait
                             nsa = NSA_iPhoneXsMax[0];
-                        else  // Landscape
+                        else // Landscape
                             nsa = NSA_iPhoneXsMax[1];
                         break;
                     case SimDevice.Pixel3XL_LSL:
-                        if (Screen.height > Screen.width)  // Portrait
+                        if (Screen.height > Screen.width) // Portrait
                             nsa = NSA_Pixel3XL_LSL[0];
-                        else  // Landscape
+                        else // Landscape
                             nsa = NSA_Pixel3XL_LSL[1];
                         break;
                     case SimDevice.Pixel3XL_LSR:
-                        if (Screen.height > Screen.width)  // Portrait
+                        if (Screen.height > Screen.width) // Portrait
                             nsa = NSA_Pixel3XL_LSR[0];
-                        else  // Landscape
+                        else // Landscape
                             nsa = NSA_Pixel3XL_LSR[1];
                         break;
                     default:
                         break;
                 }
 
-                safeArea = new Rect (Screen.width * nsa.x, Screen.height * nsa.y, Screen.width * nsa.width, Screen.height * nsa.height);
+                safeArea = new Rect(Screen.width * nsa.x, Screen.height * nsa.y, Screen.width * nsa.width,
+                    Screen.height * nsa.height);
             }
 
             return safeArea;
         }
 
-        void ApplySafeArea (Rect r)
+        void ApplySafeArea(Rect r)
         {
             LastSafeArea = r;
 
@@ -240,9 +255,9 @@ using UnityEngine;
 
             if (Logging)
             {
-                Debug.LogFormat ("New safe area applied to {0}: x={1}, y={2}, w={3}, h={4} on full extents w={5}, h={6}",
-                name, r.x, r.y, r.width, r.height, Screen.width, Screen.height);
+                Debug.LogFormat("New safe area applied to {0}: x={1}, y={2}, w={3}, h={4} on full extents w={5}, h={6}",
+                    name, r.x, r.y, r.width, r.height, Screen.width, Screen.height);
             }
         }
     }
-
+}

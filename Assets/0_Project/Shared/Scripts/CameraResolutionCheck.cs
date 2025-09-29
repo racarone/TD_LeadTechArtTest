@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
+namespace TD.Shared
+{
     public class CameraResolutionCheck : MonoBehaviour
     {
         [SerializeField] CanvasScaler scaler;
@@ -73,3 +74,4 @@ using UnityEngine.UI;
             }
         }
     }
+}

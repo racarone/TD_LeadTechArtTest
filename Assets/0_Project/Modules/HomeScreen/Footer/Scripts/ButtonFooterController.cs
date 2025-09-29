@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-
-
+namespace TD.HomeScreen.Footer
+{
     public class ButtonFooterController : MonoBehaviour
     {
         [Header("Components")]
@@ -49,4 +49,4 @@ using UnityEngine.UI;
             animator.SetBool("Selected", _selected);
         }
     }
-
+}

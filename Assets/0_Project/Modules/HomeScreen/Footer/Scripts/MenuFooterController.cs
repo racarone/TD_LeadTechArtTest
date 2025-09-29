@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-
+namespace TD.HomeScreen.Footer
+{
     public class MenuFooterController : MonoBehaviour
     {
         [Header("Components")]
@@ -92,3 +93,4 @@ using UnityEngine;
             });
         }
     }
+}
