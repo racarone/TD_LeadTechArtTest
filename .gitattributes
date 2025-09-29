@@ -1,0 +1,47 @@
+# Line endings
+* text=auto eol=lf
+
+# Source & config treated as text
+*.cs           text diff=csharp
+*.shader       text
+*.cginc        text
+*.hlsl         text
+*.compute      text
+*.json         text
+*.yml          text
+*.yaml         text
+*.txt          text
+*.md           text
+*.asmdef       text
+*.asmref       text
+*.rsp          text
+
+# Unity YAML assets (mergeable text)
+*.unity        text merge=unityyamlmerge
+*.prefab       text merge=unityyamlmerge
+*.mat          text merge=unityyamlmerge
+*.anim         text merge=unityyamlmerge
+*.asset        text merge=unityyamlmerge
+*.meta         text merge=unityyamlmerge
+*.overrideController text merge=unityyamlmerge
+*.controller   text merge=unityyamlmerge
+*.vfx          text merge=unityyamlmerge
+*.uxml         text
+*.uss          text
+
+# Git LFS: archives and obvious binaries
+*.{zip,7z,tgz,gz,jar,nupkg,egg,apk,msi,tar,zst} filter=lfs diff=lfs merge=lfs -text
+
+# 3D / textures / fonts (binary)
+*.{fbx,FBX,dds,exr,psd,tga,tif,tiff,png,jpg,jpeg,ttf,otf} filter=lfs diff=lfs merge=lfs -text
+
+# Audio / video (binary)
+*.{wav,mp3,ogg,aiff,aif,flac,m4a,mp4,mov,avi,webm} filter=lfs diff=lfs merge=lfs -text
+
+# Generic binary buckets you *intend* to be binary
+*.bytes        filter=lfs diff=lfs merge=lfs -text
+*.cube         filter=lfs diff=lfs merge=lfs -text
+
+# Unity packages / caches that you choose to version
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*.test-cache   filter=lfs diff=lfs merge=lfs -text
