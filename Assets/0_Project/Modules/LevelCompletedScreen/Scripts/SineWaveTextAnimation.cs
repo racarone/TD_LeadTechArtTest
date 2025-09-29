@@ -5,9 +5,14 @@ namespace TD.LevelCompletedScreen
 {
     public class SineWaveTextAnimation : MonoBehaviour
     {
-        private const float amplitude = 5f; // How far the letters float
-        private const float frequency = 2f; // Speed of the float
-        private const float waveOffset = 0.2f; // Offset between each letter
+        [Min(0f)] [Tooltip("How far the letters float up and down")]
+        public float amplitude = 5f; 
+        
+        [Min(0f)] [Tooltip("Speed of the float")]
+        public float frequency = 2f;
+        
+        [Min(0f)] [Tooltip("Offset between each letter")]
+        public float waveOffset = 0.2f;
 
         private TMP_Text _textMesh;
         private Vector3[] _originalVertices;
