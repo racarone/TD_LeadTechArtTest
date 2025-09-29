@@ -95,6 +95,8 @@ MonoBehaviour:
   - {fileID: 5465648401885407284}
   - {fileID: 8577689127938053096}
   - {fileID: 5512118607911714653}
+  indicatorMoveDuration: 0.15
+  indicatorMoveEase: 11
 --- !u!95 &5891058677154664669
 Animator:
   serializedVersion: 7

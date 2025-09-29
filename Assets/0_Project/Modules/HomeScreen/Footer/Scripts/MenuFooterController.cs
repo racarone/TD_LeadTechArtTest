@@ -10,6 +10,9 @@ namespace TD.HomeScreen.Footer
         [SerializeField] private GameObject indicator;
         [SerializeField] private ButtonFooterController startSelected;
         [SerializeField] private List<ButtonFooterController> footerButtons;
+        
+        [SerializeField] private float indicatorMoveDuration = 0.25f;
+        [SerializeField] private Ease indicatorMoveEase = Ease.OutSine;
 
         private ButtonFooterController _buttonSelected;
         private GameObject _currentSlot;
@@ -80,7 +83,7 @@ namespace TD.HomeScreen.Footer
 
             indicator.SetActive(true);
             indicator.transform.DOKill();
-            indicator.transform.DOMoveX(_currentSlot.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
+            indicator.transform.DOMoveX(_currentSlot.transform.position.x, indicatorMoveDuration).SetEase(indicatorMoveEase).OnComplete(() =>
             {
                 indicator.transform.position = new Vector3(_currentSlot.transform.position.x,
                                                             indicator.transform.position.y,
