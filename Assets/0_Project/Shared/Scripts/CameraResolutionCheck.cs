@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 namespace TD.Shared
 {
+    /// <summary>
+    /// Adjusts the CanvasScaler's matchWidthOrHeight based on device type (phone or tablet).
+    /// Phones prioritize width (matchWidthOrHeight = 0), while tablets prioritize height (matchWidthOrHeight = 1).
+    /// </summary>
     public class CameraResolutionCheck : MonoBehaviour
     {
         [SerializeField] private CanvasScaler scaler;

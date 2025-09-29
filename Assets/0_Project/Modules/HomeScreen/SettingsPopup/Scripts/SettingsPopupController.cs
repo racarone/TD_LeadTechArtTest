@@ -13,7 +13,9 @@ namespace TD.HomeScreen.SettingsPopup
             animator.SetTrigger(CloseId);
         }
         
-        // Method called through animation event when the close animation is completed
+        /// <summary>
+        /// Called when the Popup_Closing state animation is completed.
+        /// </summary>
         public void OnClosedAnimationCompleted()
         {
             gameObject.SetActive(false);
