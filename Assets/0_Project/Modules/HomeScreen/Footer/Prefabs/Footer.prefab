@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 4353331201513594452}
   - component: {fileID: 5891058677154664669}
   m_Layer: 5
-  m_Name: menu_footer
+  m_Name: Footer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
