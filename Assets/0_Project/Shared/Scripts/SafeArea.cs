@@ -22,27 +22,22 @@ namespace TD.Shared
             /// Don't use a simulated safe area - GUI will be full screen as normal.
             /// </summary>
             None,
-
             /// <summary>
             /// Simulate a custom simulated safe area
             /// </summary>
             Custom,
-
             /// <summary>
             /// Simulate the iPhone X and Xs (identical safe areas).
             /// </summary>
             iPhoneX,
-
             /// <summary>
             /// Simulate the iPhone Xs Max and XR (identical safe areas).
             /// </summary>
             iPhoneXsMax,
-
             /// <summary>
             /// Simulate the Google Pixel 3 XL using landscape left.
             /// </summary>
             Pixel3XL_LSL,
-
             /// <summary>
             /// Simulate the Google Pixel 3 XL using landscape right.
             /// </summary>
@@ -62,7 +57,7 @@ namespace TD.Shared
         ///  LandscapeR x=132, y=63, w=2172, h=1062 on full extents w=2436, h=1125.
         ///  Aspect Ratio: ~19.5:9.
         /// </summary>
-        Rect[] NSA_iPhoneX = new Rect[]
+        private Rect[] NSA_iPhoneX = new Rect[]
         {
             new Rect(0f, 102f / 2436f, 1f, 2202f / 2436f), // Portrait
             new Rect(132f / 2436f, 63f / 1125f, 2172f / 2436f, 1062f / 1125f) // Landscape
@@ -76,7 +71,7 @@ namespace TD.Shared
         ///  LandscapeR x=132, y=63, w=2424, h=1179 on full extents w=2688, h=1242.
         ///  Aspect Ratio: ~19.5:9.
         /// </summary>
-        Rect[] NSA_iPhoneXsMax = new Rect[]
+        private Rect[] NSA_iPhoneXsMax = new Rect[]
         {
             new Rect(0f, 102f / 2688f, 1f, 2454f / 2688f), // Portrait
             new Rect(132f / 2688f, 63f / 1242f, 2424f / 2688f, 1179f / 1242f) // Landscape
@@ -90,7 +85,7 @@ namespace TD.Shared
         ///  LandscapeR x=0, y=0, w=2789, h=1440 on full extents w=2960, h=1440.
         ///  Aspect Ratio: 18.5:9.
         /// </summary>
-        Rect[] NSA_Pixel3XL_LSL = new Rect[]
+        private Rect[] NSA_Pixel3XL_LSL = new Rect[]
         {
             new Rect(0f, 0f, 1f, 2789f / 2960f), // Portrait
             new Rect(0f, 0f, 2789f / 2960f, 1f) // Landscape
@@ -99,7 +94,7 @@ namespace TD.Shared
         /// <summary>
         /// Normalised safe areas for Pixel 3 XL using landscape right. Absolute values and aspect ratio same as above.
         /// </summary>
-        Rect[] NSA_Pixel3XL_LSR = new Rect[]
+        private Rect[] NSA_Pixel3XL_LSR = new Rect[]
         {
             new Rect(0f, 0f, 1f, 2789f / 2960f), // Portrait
             new Rect(171f / 2960f, 0f, 2789f / 2960f, 1f) // Landscape
@@ -113,21 +108,18 @@ namespace TD.Shared
 
         #endregion
 
-        RectTransform Panel;
-        Rect LastSafeArea = new Rect(0, 0, 0, 0);
-        Vector2Int LastScreenSize = new Vector2Int(0, 0);
-        ScreenOrientation LastOrientation = ScreenOrientation.AutoRotation;
+        private RectTransform Panel;
+        private Rect LastSafeArea = new Rect(0, 0, 0, 0);
+        private Vector2Int LastScreenSize = new Vector2Int(0, 0);
+        private ScreenOrientation LastOrientation = ScreenOrientation.AutoRotation;
 
-        [SerializeField]
-        bool ConformX = true; // Conform to screen safe area on X-axis (default true, disable to ignore)
+        [SerializeField] private bool ConformX = true; // Conform to screen safe area on X-axis (default true, disable to ignore)
 
-        [SerializeField]
-        bool ConformY = true; // Conform to screen safe area on Y-axis (default true, disable to ignore)
+        [SerializeField] private bool ConformY = true; // Conform to screen safe area on Y-axis (default true, disable to ignore)
 
-        [SerializeField]
-        bool Logging = false; // Conform to screen safe area on Y-axis (default true, disable to ignore)
+        [SerializeField] private bool Logging = false; // Conform to screen safe area on Y-axis (default true, disable to ignore)
 
-        void Awake()
+        private void Awake()
         {
             Panel = GetComponent<RectTransform>();
 
@@ -140,12 +132,12 @@ namespace TD.Shared
             Refresh();
         }
 
-        void Update()
+        private void Update()
         {
             Refresh();
         }
 
-        void Refresh()
+        private void Refresh()
         {
             Rect safeArea = GetSafeArea();
 
@@ -164,7 +156,7 @@ namespace TD.Shared
             }
         }
 
-        Rect GetSafeArea()
+        private Rect GetSafeArea()
         {
             Rect safeArea = Screen.safeArea;
 
@@ -215,7 +207,7 @@ namespace TD.Shared
             return safeArea;
         }
 
-        void ApplySafeArea(Rect r)
+        private void ApplySafeArea(Rect r)
         {
             LastSafeArea = r;
 

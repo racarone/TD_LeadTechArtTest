@@ -5,15 +5,15 @@ namespace TD.Shared
 {
     public class CameraResolutionCheck : MonoBehaviour
     {
-        [SerializeField] CanvasScaler scaler;
+        [SerializeField] private CanvasScaler scaler;
 
-        enum DeviceType
+        private enum DeviceType
         {
             Phone = 2,
             Tablet = 3
         }
 
-        void Awake()
+        private void Awake()
         {
 
 
@@ -39,7 +39,7 @@ namespace TD.Shared
             return diagonalInches;
         }
 
-        DeviceType GetDeviceType()
+        private DeviceType GetDeviceType()
         {
 #if UNITY_IOS
     bool deviceIsIpad = UnityEngine.iOS.Device.generation.ToString().Contains("iPad");

@@ -5,26 +5,26 @@ namespace TD.LevelCompletedScreen
 {
     public class SineWaveTextAnimation : MonoBehaviour
     {
-        const float amplitude = 5f; // How far the letters float
-        const float frequency = 2f; // Speed of the float
-        const float waveOffset = 0.2f; // Offset between each letter
+        private const float amplitude = 5f; // How far the letters float
+        private const float frequency = 2f; // Speed of the float
+        private const float waveOffset = 0.2f; // Offset between each letter
 
         private TMP_Text textMesh;
         private Vector3[] originalVertices;
 
-        void Start()
+        private void Start()
         {
             textMesh = GetComponent<TMP_Text>();
             textMesh.ForceMeshUpdate();
             originalVertices = textMesh.mesh.vertices;
         }
 
-        void Update()
+        private void Update()
         {
             AnimateText();
         }
 
-        void AnimateText()
+        private void AnimateText()
         {
             // Get the updated mesh and vertices
             textMesh.ForceMeshUpdate();

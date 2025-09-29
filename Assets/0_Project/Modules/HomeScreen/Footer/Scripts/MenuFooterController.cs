@@ -15,7 +15,7 @@ namespace TD.HomeScreen.Footer
         private ButtonFooterController _buttonSelected;
         private GameObject _currentSlot;
 
-        void Start()
+        private void Start()
         {
             if (startSelected != null)
             {
@@ -27,7 +27,7 @@ namespace TD.HomeScreen.Footer
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             foreach (var btn in footerButtons)
             {
@@ -35,7 +35,7 @@ namespace TD.HomeScreen.Footer
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             foreach (var btn in footerButtons)
             {

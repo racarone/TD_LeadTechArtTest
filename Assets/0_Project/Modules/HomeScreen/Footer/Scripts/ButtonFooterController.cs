@@ -18,12 +18,12 @@ namespace TD.HomeScreen.Footer
         private bool _selected;
         private bool _locked;
 
-        void Awake()
+        private void Awake()
         {
             SetLock(lockOnAwake);
         }
 
-        void Start()
+        private void Start()
         {
             footerBtn.onClick.AddListener(() =>
             {
