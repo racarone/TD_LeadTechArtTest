@@ -9,21 +9,14 @@ namespace TD.Shared
 
         private enum DeviceType
         {
-            Phone = 2,
+            Phone  = 2,
             Tablet = 3
         }
 
         private void Awake()
         {
             var device = GetDeviceType();
-            if (device == DeviceType.Tablet)
-            {
-                scaler.matchWidthOrHeight = 1f;
-            }
-            else
-            {
-                scaler.matchWidthOrHeight = 0f;
-            }
+            scaler.matchWidthOrHeight = device == DeviceType.Tablet ? 1f : 0f;
         }
 
         private float DeviceDiagonalSizeInInches()
@@ -37,7 +30,7 @@ namespace TD.Shared
         private DeviceType GetDeviceType()
         {
 #if UNITY_IOS
-    bool deviceIsIpad = UnityEngine.iOS.Device.generation.ToString().Contains("iPad");
+            bool deviceIsIpad = UnityEngine.iOS.Device.generation.ToString().Contains("iPad");
             if (deviceIsIpad)
             {
                 return DeviceType.Tablet;
@@ -59,14 +52,7 @@ namespace TD.Shared
             bool isTablet = (DeviceDiagonalSizeInInches() > 6.5f && aspectRatio < 2f);
 #endif
 
-            if (isTablet)
-            {
-                return DeviceType.Tablet;
-            }
-            else
-            {
-                return DeviceType.Phone;
-            }
+            return isTablet ? DeviceType.Tablet : DeviceType.Phone;
         }
     }
 }
