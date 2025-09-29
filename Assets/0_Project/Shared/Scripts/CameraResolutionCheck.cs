@@ -15,10 +15,7 @@ namespace TD.Shared
 
         private void Awake()
         {
-
-
             var device = GetDeviceType();
-
             if (device == DeviceType.Tablet)
             {
                 scaler.matchWidthOrHeight = 1f;
@@ -27,7 +24,6 @@ namespace TD.Shared
             {
                 scaler.matchWidthOrHeight = 0f;
             }
-
         }
 
         private float DeviceDiagonalSizeInInches()
@@ -35,7 +31,6 @@ namespace TD.Shared
             float screenWidth = Screen.width / Screen.dpi;
             float screenHeight = Screen.height / Screen.dpi;
             float diagonalInches = Mathf.Sqrt(Mathf.Pow(screenWidth, 2) + Mathf.Pow(screenHeight, 2));
-
             return diagonalInches;
         }
 

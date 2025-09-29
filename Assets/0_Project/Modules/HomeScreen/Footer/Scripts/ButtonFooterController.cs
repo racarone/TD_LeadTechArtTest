@@ -14,7 +14,6 @@ namespace TD.HomeScreen.Footer
         [Header("Events")]
         public UnityEvent<ButtonFooterController> OnButtonClickedEvent;
 
-        //Internal
         private bool _selected;
         private bool _locked;
 
@@ -31,21 +30,16 @@ namespace TD.HomeScreen.Footer
             });
         }
 
-        public void SetLock(
-            bool locked)
+        public void SetLock(bool locked)
         {
             _locked = locked;
-
             footerBtn.interactable = _locked == false;
-
             animator.SetBool("Locked", _locked);
         }
 
-        public void SetSelect(
-            bool selected)
+        public void SetSelect(bool selected)
         {
             _selected = selected;
-
             animator.SetBool("Selected", _selected);
         }
     }

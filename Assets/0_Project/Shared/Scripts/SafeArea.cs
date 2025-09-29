@@ -108,22 +108,19 @@ namespace TD.Shared
 
         #endregion
 
-        private RectTransform Panel;
-        private Rect LastSafeArea = new Rect(0, 0, 0, 0);
-        private Vector2Int LastScreenSize = new Vector2Int(0, 0);
-        private ScreenOrientation LastOrientation = ScreenOrientation.AutoRotation;
-
         [SerializeField] private bool ConformX = true; // Conform to screen safe area on X-axis (default true, disable to ignore)
-
         [SerializeField] private bool ConformY = true; // Conform to screen safe area on Y-axis (default true, disable to ignore)
-
         [SerializeField] private bool Logging = false; // Conform to screen safe area on Y-axis (default true, disable to ignore)
+        
+        private RectTransform _panel;
+        private Rect _lastSafeArea = new Rect(0, 0, 0, 0);
+        private Vector2Int _lastScreenSize = new Vector2Int(0, 0);
+        private ScreenOrientation _lastOrientation = ScreenOrientation.AutoRotation;
 
         private void Awake()
         {
-            Panel = GetComponent<RectTransform>();
-
-            if (Panel == null)
+            _panel = GetComponent<RectTransform>();
+            if (_panel == null)
             {
                 Debug.LogError("Cannot apply safe area - no RectTransform found on " + name);
                 Destroy(gameObject);
@@ -141,16 +138,16 @@ namespace TD.Shared
         {
             Rect safeArea = GetSafeArea();
 
-            if (safeArea != LastSafeArea
-                || Screen.width != LastScreenSize.x
-                || Screen.height != LastScreenSize.y
-                || Screen.orientation != LastOrientation)
+            if (safeArea != _lastSafeArea
+                || Screen.width != _lastScreenSize.x
+                || Screen.height != _lastScreenSize.y
+                || Screen.orientation != _lastOrientation)
             {
                 // Fix for having auto-rotate off and manually forcing a screen orientation.
                 // See https://forum.unity.com/threads/569236/#post-4473253 and https://forum.unity.com/threads/569236/page-2#post-5166467
-                LastScreenSize.x = Screen.width;
-                LastScreenSize.y = Screen.height;
-                LastOrientation = Screen.orientation;
+                _lastScreenSize.x = Screen.width;
+                _lastScreenSize.y = Screen.height;
+                _lastOrientation = Screen.orientation;
 
                 ApplySafeArea(safeArea);
             }
@@ -209,7 +206,7 @@ namespace TD.Shared
 
         private void ApplySafeArea(Rect r)
         {
-            LastSafeArea = r;
+            _lastSafeArea = r;
 
             // Ignore x-axis?
             if (!ConformX)
@@ -240,8 +237,8 @@ namespace TD.Shared
                 // See https://forum.unity.com/threads/569236/page-2#post-6199352
                 if (anchorMin.x >= 0 && anchorMin.y >= 0 && anchorMax.x >= 0 && anchorMax.y >= 0)
                 {
-                    Panel.anchorMin = anchorMin;
-                    Panel.anchorMax = anchorMax;
+                    _panel.anchorMin = anchorMin;
+                    _panel.anchorMax = anchorMax;
                 }
             }
 

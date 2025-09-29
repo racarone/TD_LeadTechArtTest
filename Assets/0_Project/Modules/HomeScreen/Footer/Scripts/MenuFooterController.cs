@@ -11,7 +11,6 @@ namespace TD.HomeScreen.Footer
         [SerializeField] private ButtonFooterController startSelected;
         [SerializeField] private List<ButtonFooterController> footerButtons;
 
-        //Internal
         private ButtonFooterController _buttonSelected;
         private GameObject _currentSlot;
 
@@ -42,10 +41,8 @@ namespace TD.HomeScreen.Footer
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
         }
-
-
-        private void OnButtonClickedEvent(
-            ButtonFooterController buttonClicked)
+        
+        private void OnButtonClickedEvent(ButtonFooterController buttonClicked)
         {
             if (footerButtons.Contains(buttonClicked))
             {
@@ -60,7 +57,6 @@ namespace TD.HomeScreen.Footer
                     }
 
                     indicator.SetActive(false);
-
                     return;
                 }
 
@@ -78,7 +74,6 @@ namespace TD.HomeScreen.Footer
         private void MoveIndicator()
         {
             if (_buttonSelected == null) return;
-
             if (_currentSlot == _buttonSelected.gameObject) return;
 
             _currentSlot = _buttonSelected.gameObject;
