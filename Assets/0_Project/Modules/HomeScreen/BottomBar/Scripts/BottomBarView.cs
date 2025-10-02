@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,20 +6,32 @@ namespace TD.HomeScreen.BottomBar
 {
     public class BottomBarView : MonoBehaviour
     {
-        [Header("Components")]
-        [SerializeField] private GameObject indicator;
+        [Header("Elements")]
+        [Tooltip("Indicator that highlights the selected button.")]
+        [SerializeField] private BottomBarIndicator indicator;
+        [Tooltip("Button that is selected when the view is opened.")]
         [SerializeField] private BottomBarButton startSelected;
+        [Tooltip("Include disabled buttons when searching for buttons in children.")]
         [SerializeField] private bool includeDisabledButtons;
 
         [Header("Events")] 
+        [Tooltip("Event fired when a button is selected.")]
         public UnityEvent<BottomBarView> ContentActivated;
+        [Tooltip("Event fired when the selected button is deselected.")]
         public UnityEvent<BottomBarView> Closed;
         
         private List<BottomBarButton> _buttons = new List<BottomBarButton>();
         private BottomBarButton _selectedButton;
         
+        /// <summary>
+        /// Currently selected button. Null if no button is selected.
+        /// </summary>
         public BottomBarButton selectedButton => _selectedButton;
         
+        /// <summary>
+        /// Selects the given button. If the button is already selected, it will be deselected.
+        /// If null is passed, the currently selected button will be deselected.
+        /// </summary>
         public void SelectButton(BottomBarButton button)
         {
             if (_selectedButton == button || button == null)
@@ -31,9 +42,7 @@ namespace TD.HomeScreen.BottomBar
                     _selectedButton = null;
                 }
                 
-                indicator.transform.DOKill();
-                indicator.SetActive(false);
-                
+                indicator.ClearTarget();
                 Closed?.Invoke(this);
             }
             else
@@ -43,8 +52,7 @@ namespace TD.HomeScreen.BottomBar
 
                 _selectedButton = button;
                 _selectedButton.selected = true;
-                MoveIndicator(_selectedButton.transform);
-                
+                indicator.SetTarget((RectTransform)_selectedButton.transform);
                 ContentActivated?.Invoke(this);
             }
         }
@@ -54,10 +62,6 @@ namespace TD.HomeScreen.BottomBar
             if (startSelected != null)
             {
                 OnButtonClickedEvent(startSelected);
-            }
-            else
-            {
-                indicator.SetActive(false);
             }
         }
 
@@ -78,25 +82,12 @@ namespace TD.HomeScreen.BottomBar
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
             
-            indicator.transform.DOKill();
+            indicator.HideImmediate();
         }
         
         private void OnButtonClickedEvent(BottomBarButton buttonClicked)
         {
             SelectButton(buttonClicked);
-        }
-
-        private void MoveIndicator(Transform target)
-        {
-            indicator.SetActive(true);
-            indicator.transform.DOKill();
-            indicator.transform.DOMoveX(target.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
-            {
-                indicator.transform.position = new Vector3(
-                    target.transform.position.x, 
-                    indicator.transform.position.y,
-                    indicator.transform.position.z);
-            });
         }
     }
 }

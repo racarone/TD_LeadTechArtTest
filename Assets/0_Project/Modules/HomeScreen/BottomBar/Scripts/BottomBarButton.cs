@@ -12,9 +12,11 @@ namespace TD.HomeScreen.BottomBar
         private static readonly int SelectedID = Animator.StringToHash("Selected");
 
         [Header("General")] 
-        [SerializeField] private bool lockOnAwake;
+        [Tooltip("If true, the button will start in a locked state and be non-interactable.")]
+        [SerializeField] private bool startLocked;
 
         [Header("Events")] 
+        [Tooltip("Event fired when the button is clicked.")]
         public UnityEvent<BottomBarButton> OnButtonClickedEvent;
 
         private Animator _animator;
@@ -51,21 +53,21 @@ namespace TD.HomeScreen.BottomBar
             }
         }
 
-        private void Awake()
+        private void OnEnable()
         {
             _animator = GetComponent<Animator>();
             _button = GetComponent<Button>();
-            locked = lockOnAwake;
-        }
-
-        private void OnEnable()
-        {
             _button.onClick.AddListener(InvokeClickEvent);
         }
         
         private void OnDisable()
         {
             _button.onClick.RemoveListener(InvokeClickEvent);
+        }
+
+        private void Start()
+        {
+            locked = startLocked;
         }
         
         private void InvokeClickEvent()

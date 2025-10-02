@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 259760877011743574, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: m_Name
-      value: FooterButton_Home Variant
+      value: BottomBarButton_Home
       objectReference: {fileID: 0}
     - target: {fileID: 520565577050239058, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: m_text
@@ -99,6 +99,14 @@ PrefabInstance:
     - target: {fileID: 5244083550947242576, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541925579803300659, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
+      propertyPath: OnButtonClickedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541925579803300659, guid: 473f2094f421e394aa54eaf9f2147e92, type: 3}
+      propertyPath: OnButtonClickedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
