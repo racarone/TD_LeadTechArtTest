@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace TD.HomeScreen.BottomBar
 {
+    /// <summary>
+    /// View that manages a bar with multiple buttons with a selection indicator.
+    /// </summary>
     public class BottomBarView : MonoBehaviour
     {
         [Header("Elements")]
@@ -24,13 +27,13 @@ namespace TD.HomeScreen.BottomBar
         private BottomBarButton _selectedButton;
         
         /// <summary>
-        /// Currently selected button. Null if no button is selected.
+        /// Currently selected button. <c>null</c> if no button is selected.
         /// </summary>
         public BottomBarButton selectedButton => _selectedButton;
         
         /// <summary>
         /// Selects the given button. If the button is already selected, it will be deselected.
-        /// If null is passed, the currently selected button will be deselected.
+        /// If <c>null</c> is passed, the currently selected button will be deselected.
         /// </summary>
         public void SelectButton(BottomBarButton button)
         {

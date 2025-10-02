@@ -14,7 +14,14 @@ namespace TD.HomeScreen.BottomBar
     [RequireComponent(typeof(CanvasGroup))]
     public class BottomBarIndicator : MonoBehaviour
     {
+        /// <summary>
+        /// How the indicator will follow its target.
+        /// </summary>
         public enum FollowMode { SmoothDamp, Spring }
+        
+        /// <summary>
+        /// Whether time is scaled or unscaled for motion and animations.
+        /// </summary>
         public enum TimeMode { Scaled, Unscaled }
 
         #region Serialized Fields
@@ -77,19 +84,19 @@ namespace TD.HomeScreen.BottomBar
         // Animation state
         private enum State { Hidden, Showing, Visible, Hiding }
         private State _state = State.Hidden;
-        private Sequence _inOutTween;
-        private int _tweenVersion; // Invalidates old tween callbacks
+        private Sequence _tweenSequence;
+        private int _tweenVersion; // Used to ignore stale tween callbacks when a new tween starts
 
         #endregion
         
         #region Public 
 
         /// <summary>
-        /// Set the target RectTransform for the indicator to follow.
+        /// Set the target <see cref="RectTransform"/> for the indicator to follow.
         /// </summary>
         /// <remarks>
         /// If the indicator is hidden, it will show itself.
-        /// If the target is null, the indicator will hide itself.
+        /// If the target is <c>null</c>, the indicator will hide itself.
         /// </remarks>
         public void SetTarget(RectTransform target)
         {
@@ -97,8 +104,8 @@ namespace TD.HomeScreen.BottomBar
             _target = target;
 
             // Cancel any animations
-            _inOutTween?.Kill();
-            _inOutTween = null;
+            _tweenSequence?.Kill();
+            _tweenSequence = null;
 
             // Reset velocity tracking
             _velocity = 0f; 
@@ -139,8 +146,8 @@ namespace TD.HomeScreen.BottomBar
         /// </remarks>
         public void HideImmediate()
         {
-            _inOutTween?.Kill();
-            _inOutTween = null;
+            _tweenSequence?.Kill();
+            _tweenSequence = null;
             _group.alpha = 0f;
             _transform.sizeDelta = _hiddenSizeDelta;
             gameObject.SetActive(false);
@@ -157,8 +164,8 @@ namespace TD.HomeScreen.BottomBar
             _transform = GetComponent<RectTransform>();
             _group = GetComponent<CanvasGroup>();
 
-            // Cache the startup dimensions exactly once
-            _initialSizeDelta = _transform.sizeDelta; // “whatever size it was on start”
+            // Cache the startup dimensions
+            _initialSizeDelta = _transform.sizeDelta;
             _hiddenSizeDelta = new Vector2(_initialSizeDelta.x * hiddenScaleX, hiddenHeight);
 
             // Start hidden and collapsed (size, not scale)
@@ -170,8 +177,8 @@ namespace TD.HomeScreen.BottomBar
 
         private void OnDisable()
         {
-            _inOutTween?.Kill();
-            _inOutTween = null;
+            _tweenSequence?.Kill();
+            _tweenSequence = null;
         }
 
         /// <summary>
@@ -235,48 +242,48 @@ namespace TD.HomeScreen.BottomBar
 
         /// <summary>
         /// Play the show animation.
-        /// Uses tweenVersion to ignore stale callbacks if a new tween has started since.
         /// </summary>
+        /// <param name="tweenVersion">The version of the tween to track for stale callbacks.</param>
         private void PlayShow(int tweenVersion)
         {
             _state = State.Showing;
             MoveToTargetImmediate();
             gameObject.SetActive(true);
             
-            _inOutTween?.Kill(); 
-            _inOutTween = DOTween.Sequence().SetUpdate(timeMode == TimeMode.Unscaled).SetEase(fadeEase);
-            _inOutTween.Join(_transform.DOSizeDelta(_initialSizeDelta, fadeDuration));
-            _inOutTween.Join(_group.DOFade(1f, fadeDuration));
-            _inOutTween.OnComplete(() =>
+            _tweenSequence?.Kill(); 
+            _tweenSequence = DOTween.Sequence().SetUpdate(timeMode == TimeMode.Unscaled).SetEase(fadeEase);
+            _tweenSequence.Join(_transform.DOSizeDelta(_initialSizeDelta, fadeDuration));
+            _tweenSequence.Join(_group.DOFade(1f, fadeDuration));
+            _tweenSequence.OnComplete(() =>
             {
                 if (tweenVersion != _tweenVersion) return; // stale, ignore
                 _state = State.Visible;
             });
 
-            _inOutTween.Play();
+            _tweenSequence.Play();
         }
 
         /// <summary>
         /// Play the hide animation.
-        /// Uses tweenVersion to ignore stale callbacks if a new tween has started since.
         /// </summary>
+        /// <param name="tweenVersion">The version of the tween to track for stale callbacks.</param>
         private void PlayHide(int tweenVersion)
         {
             _state = State.Hiding;
             MoveToTargetImmediate();
             
-            _inOutTween?.Kill();
-            _inOutTween = DOTween.Sequence().SetUpdate(timeMode == TimeMode.Unscaled).SetEase(fadeEase);
-            _inOutTween.Join(_transform.DOSizeDelta(_hiddenSizeDelta, fadeDuration));
-            _inOutTween.Join(_group.DOFade(0f, fadeDuration));
-            _inOutTween.OnComplete(() =>
+            _tweenSequence?.Kill();
+            _tweenSequence = DOTween.Sequence().SetUpdate(timeMode == TimeMode.Unscaled).SetEase(fadeEase);
+            _tweenSequence.Join(_transform.DOSizeDelta(_hiddenSizeDelta, fadeDuration));
+            _tweenSequence.Join(_group.DOFade(0f, fadeDuration));
+            _tweenSequence.OnComplete(() =>
             {
                 if (tweenVersion != _tweenVersion) return; // stale, ignore
                 _state = State.Hidden;
                 gameObject.SetActive(false);
             });
 
-            _inOutTween.Play();
+            _tweenSequence.Play();
         }
 
         #endregion
@@ -296,7 +303,7 @@ namespace TD.HomeScreen.BottomBar
 
         /// <summary>
         /// Get the anchored X position of the target relative to this indicator's parent.
-        /// If target is null, returns the current anchored X position of the indicator.
+        /// If target is <c>null</c>, returns the current anchored X position of the indicator.
         /// </summary>
         private float GetTargetAnchoredX(RectTransform target)
         {

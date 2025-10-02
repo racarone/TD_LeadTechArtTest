@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 namespace TD.HomeScreen.BottomBar
 {
+    /// <summary>
+    /// An animated button in the bottom bar that can be selected or locked.
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Button))]
     public class BottomBarButton : MonoBehaviour
     {
-        private static readonly int LockedID = Animator.StringToHash("Locked");
-        private static readonly int SelectedID = Animator.StringToHash("Selected");
-
         [Header("General")] 
         [Tooltip("If true, the button will start in a locked state and be non-interactable.")]
         [SerializeField] private bool startLocked;
@@ -24,6 +24,13 @@ namespace TD.HomeScreen.BottomBar
         private bool _selected;
         private bool _locked;
         
+        private static readonly int LockedID = Animator.StringToHash("Locked");
+        private static readonly int SelectedID = Animator.StringToHash("Selected");
+        
+        /// <summary>
+        /// If true, the button is locked and non-interactable.
+        /// Setting this to true will also set <see cref="selected"/> to false.
+        /// </summary>
         public bool locked
         {
             get => _locked;
@@ -39,6 +46,10 @@ namespace TD.HomeScreen.BottomBar
             }
         }
 
+        /// <summary>
+        /// If true, the button is selected.
+        /// Setting this to true will have no effect if <see cref="locked"/> is true.
+        /// </summary>
         public bool selected
         {
             get => _selected;
