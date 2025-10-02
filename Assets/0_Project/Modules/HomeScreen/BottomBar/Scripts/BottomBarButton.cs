@@ -17,7 +17,7 @@ namespace TD.HomeScreen.BottomBar
 
         [Header("Events")] 
         [Tooltip("Event fired when the button is clicked.")]
-        public UnityEvent<BottomBarButton> OnButtonClickedEvent;
+        public UnityEvent<BottomBarButton> ButtonClicked;
 
         private Animator _animator;
         private Button _button;
@@ -72,7 +72,7 @@ namespace TD.HomeScreen.BottomBar
         
         private void InvokeClickEvent()
         {
-            OnButtonClickedEvent?.Invoke(this);
+            ButtonClicked?.Invoke(this);
         }
     }
 }

@@ -71,7 +71,7 @@ namespace TD.HomeScreen.BottomBar
             
             foreach (var btn in _buttons)
             {
-                btn.OnButtonClickedEvent.AddListener(OnButtonClickedEvent);
+                btn.ButtonClicked.AddListener(OnButtonClickedEvent);
             }
         }
 
@@ -79,7 +79,7 @@ namespace TD.HomeScreen.BottomBar
         {
             foreach (var btn in _buttons)
             {
-                btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
+                btn.ButtonClicked.RemoveListener(OnButtonClickedEvent);
             }
             
             indicator.HideImmediate();
