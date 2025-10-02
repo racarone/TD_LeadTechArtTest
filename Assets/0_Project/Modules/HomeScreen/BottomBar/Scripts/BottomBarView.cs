@@ -9,8 +9,9 @@ namespace TD.HomeScreen.BottomBar
         [Header("Components")]
         [SerializeField] private GameObject indicator;
         [SerializeField] private BottomBarButton startSelected;
-        [SerializeField] private List<BottomBarButton> footerButtons;
-
+        [SerializeField] private bool includeDisabledButtons;
+        
+        private List<BottomBarButton> _footerButtons = new List<BottomBarButton>();
         private BottomBarButton _buttonSelected;
         private GameObject _currentSlot;
 
@@ -28,7 +29,9 @@ namespace TD.HomeScreen.BottomBar
 
         private void OnEnable()
         {
-            foreach (var btn in footerButtons)
+            GetComponentsInChildren(includeInactive: includeDisabledButtons, _footerButtons);
+            
+            foreach (var btn in _footerButtons)
             {
                 btn.OnButtonClickedEvent.AddListener(OnButtonClickedEvent);
             }
@@ -36,7 +39,7 @@ namespace TD.HomeScreen.BottomBar
 
         private void OnDisable()
         {
-            foreach (var btn in footerButtons)
+            foreach (var btn in _footerButtons)
             {
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
@@ -44,14 +47,14 @@ namespace TD.HomeScreen.BottomBar
         
         private void OnButtonClickedEvent(BottomBarButton buttonClicked)
         {
-            if (footerButtons.Contains(buttonClicked))
+            if (_footerButtons.Contains(buttonClicked))
             {
                 if (_buttonSelected == buttonClicked)
                 {
                     _buttonSelected = null;
                     _currentSlot = null;
 
-                    foreach (var btn in footerButtons)
+                    foreach (var btn in _footerButtons)
                     {
                         btn.SetSelect(false);
                     }
@@ -63,7 +66,7 @@ namespace TD.HomeScreen.BottomBar
 
                 _buttonSelected = buttonClicked;
 
-                foreach (var btn in footerButtons)
+                foreach (var btn in _footerButtons)
                 {
                     btn.SetSelect(_buttonSelected == btn);
                 }
