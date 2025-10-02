@@ -21,34 +21,56 @@ namespace TD.HomeScreen.BottomBar
         private Button _button;
         private bool _selected;
         private bool _locked;
+        
+        public bool locked
+        {
+            get => _locked;
+            set
+            {
+                if (value != _locked)
+                {
+                    _locked = value;
+                    _selected = false;
+                    _button.interactable = !_locked;
+                    _animator.SetBool(LockedID, _locked);
+                }
+            }
+        }
+
+        public bool selected
+        {
+            get => _selected;
+            set
+            {
+                if (_locked) return;
+                if (value != _selected)
+                {
+                    _selected = value;
+                    _animator.SetBool(SelectedID, _selected);
+                }
+            }
+        }
 
         private void Awake()
         {
-            SetLock(lockOnAwake);
+            _animator = GetComponent<Animator>();
+            _button = GetComponent<Button>();
+            locked = lockOnAwake;
         }
 
         private void OnEnable()
         {
-            _animator = GetComponent<Animator>();
-            _button = GetComponent<Button>();
+            _button.onClick.AddListener(InvokeClickEvent);
         }
-
-        private void Start()
+        
+        private void OnDisable()
         {
-            _button.onClick.AddListener(() => { OnButtonClickedEvent?.Invoke(this); });
+            _button.onClick.RemoveListener(InvokeClickEvent);
         }
-
-        public void SetLock(bool locked)
+        
+        private void InvokeClickEvent()
         {
-            _locked = locked;
-            _button.interactable = !_locked;
-            _animator.SetBool(LockedID, _locked);
-        }
-
-        public void SetSelect(bool selected)
-        {
-            _selected = selected;
-            _animator.SetBool(SelectedID, _selected);
+            OnButtonClickedEvent?.Invoke(this);
         }
     }
 }
