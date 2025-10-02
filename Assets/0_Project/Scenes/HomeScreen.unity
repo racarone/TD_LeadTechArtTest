@@ -856,6 +856,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 519238225}
     m_Modifications:
+    - target: {fileID: 356113994955066282, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
+      propertyPath: m_Name
+      value: BottomBarButton_Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 607084964622409764, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
+      propertyPath: m_Name
+      value: BottomBarButton_LeftFeature
+      objectReference: {fileID: 0}
     - target: {fileID: 923092828852626208, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
       propertyPath: m_fontSize
       value: 36.05
@@ -866,7 +874,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2034084071721005965, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
       propertyPath: m_Name
-      value: FooterButton_Map
+      value: BottomBarButton_Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371554481843210321, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
+      propertyPath: m_Name
+      value: BottomBarButton_Home
+      objectReference: {fileID: 0}
+    - target: {fileID: 2832320875366866744, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
+      propertyPath: m_Name
+      value: BottomBarButton_RightFeature
       objectReference: {fileID: 0}
     - target: {fileID: 3802303639822036409, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
       propertyPath: m_Pivot.x
@@ -950,7 +966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4083354729211081956, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
       propertyPath: m_Name
-      value: MenuFooter
+      value: BottomBarView
       objectReference: {fileID: 0}
     - target: {fileID: 4353331201513594452, guid: f87f734a32f0ed34a954cdaacc91a065, type: 3}
       propertyPath: startSelected

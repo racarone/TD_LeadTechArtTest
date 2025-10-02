@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 
 
-    public class ButtonFooterController : MonoBehaviour
+    public class BottomBarButton : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] private Animator animator;
@@ -12,7 +12,7 @@ using UnityEngine.UI;
         [SerializeField] private bool lockOnAwake;
 
         [Header("Events")]
-        public UnityEvent<ButtonFooterController> OnButtonClickedEvent;
+        public UnityEvent<BottomBarButton> OnButtonClickedEvent;
 
         //Internal
         private bool _selected;

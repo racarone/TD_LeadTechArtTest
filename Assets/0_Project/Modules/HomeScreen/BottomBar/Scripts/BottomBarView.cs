@@ -3,15 +3,15 @@ using DG.Tweening;
 using UnityEngine;
 
 
-    public class MenuFooterController : MonoBehaviour
+    public class BottomBarView : MonoBehaviour
     {
         [Header("Components")]
         [SerializeField] private GameObject indicator;
-        [SerializeField] private ButtonFooterController startSelected;
-        [SerializeField] private List<ButtonFooterController> footerButtons;
+        [SerializeField] private BottomBarButton startSelected;
+        [SerializeField] private List<BottomBarButton> footerButtons;
 
         //Internal
-        private ButtonFooterController _buttonSelected;
+        private BottomBarButton _buttonSelected;
         private GameObject _currentSlot;
 
         void Start()
@@ -44,7 +44,7 @@ using UnityEngine;
 
 
         private void OnButtonClickedEvent(
-            ButtonFooterController buttonClicked)
+            BottomBarButton buttonClicked)
         {
             if (footerButtons.Contains(buttonClicked))
             {
