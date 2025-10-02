@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-
+namespace TD.HomeScreen.BottomBar
+{
     public class BottomBarView : MonoBehaviour
     {
         [Header("Components")]
@@ -10,11 +11,10 @@ using UnityEngine;
         [SerializeField] private BottomBarButton startSelected;
         [SerializeField] private List<BottomBarButton> footerButtons;
 
-        //Internal
         private BottomBarButton _buttonSelected;
         private GameObject _currentSlot;
 
-        void Start()
+        private void Start()
         {
             if (startSelected != null)
             {
@@ -26,7 +26,7 @@ using UnityEngine;
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             foreach (var btn in footerButtons)
             {
@@ -34,17 +34,15 @@ using UnityEngine;
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             foreach (var btn in footerButtons)
             {
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
         }
-
-
-        private void OnButtonClickedEvent(
-            BottomBarButton buttonClicked)
+        
+        private void OnButtonClickedEvent(BottomBarButton buttonClicked)
         {
             if (footerButtons.Contains(buttonClicked))
             {
@@ -77,7 +75,6 @@ using UnityEngine;
         private void MoveIndicator()
         {
             if (_buttonSelected == null) return;
-
             if (_currentSlot == _buttonSelected.gameObject) return;
 
             _currentSlot = _buttonSelected.gameObject;
@@ -92,3 +89,4 @@ using UnityEngine;
             });
         }
     }
+}
