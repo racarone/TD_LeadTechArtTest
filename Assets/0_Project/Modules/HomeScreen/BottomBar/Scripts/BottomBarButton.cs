@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,6 +8,9 @@ namespace TD.HomeScreen.BottomBar
     [RequireComponent(typeof(Button))]
     public class BottomBarButton : MonoBehaviour
     {
+        private static readonly int LockedID = Animator.StringToHash("Locked");
+        private static readonly int SelectedID = Animator.StringToHash("Selected");
+
         [Header("General")] 
         [SerializeField] private bool lockOnAwake;
 
@@ -40,13 +42,13 @@ namespace TD.HomeScreen.BottomBar
         {
             _locked = locked;
             _button.interactable = !_locked;
-            _animator.SetBool("Locked", _locked);
+            _animator.SetBool(LockedID, _locked);
         }
 
         public void SetSelect(bool selected)
         {
             _selected = selected;
-            _animator.SetBool("Selected", _selected);
+            _animator.SetBool(SelectedID, _selected);
         }
     }
 }
