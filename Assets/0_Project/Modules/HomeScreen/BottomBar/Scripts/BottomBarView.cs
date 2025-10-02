@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TD.HomeScreen.BottomBar
 {
@@ -10,10 +11,43 @@ namespace TD.HomeScreen.BottomBar
         [SerializeField] private GameObject indicator;
         [SerializeField] private BottomBarButton startSelected;
         [SerializeField] private bool includeDisabledButtons;
+
+        [Header("Events")] 
+        public UnityEvent<BottomBarView> ContentActivated;
+        public UnityEvent<BottomBarView> Closed;
         
-        private List<BottomBarButton> _footerButtons = new List<BottomBarButton>();
-        private BottomBarButton _buttonSelected;
-        private GameObject _currentSlot;
+        private List<BottomBarButton> _buttons = new List<BottomBarButton>();
+        private BottomBarButton _selectedButton;
+        
+        public BottomBarButton selectedButton => _selectedButton;
+        
+        public void SelectButton(BottomBarButton button)
+        {
+            if (_selectedButton == button || button == null)
+            {
+                if (_selectedButton)
+                {
+                    _selectedButton.selected = false;
+                    _selectedButton = null;
+                }
+                
+                indicator.transform.DOKill();
+                indicator.SetActive(false);
+                
+                Closed?.Invoke(this);
+            }
+            else
+            {
+                if (_selectedButton)
+                    _selectedButton.selected = false;
+
+                _selectedButton = button;
+                _selectedButton.selected = true;
+                MoveIndicator(_selectedButton.transform);
+                
+                ContentActivated?.Invoke(this);
+            }
+        }
 
         private void Start()
         {
@@ -29,9 +63,9 @@ namespace TD.HomeScreen.BottomBar
 
         private void OnEnable()
         {
-            GetComponentsInChildren(includeInactive: includeDisabledButtons, _footerButtons);
+            GetComponentsInChildren(includeInactive: includeDisabledButtons, _buttons);
             
-            foreach (var btn in _footerButtons)
+            foreach (var btn in _buttons)
             {
                 btn.OnButtonClickedEvent.AddListener(OnButtonClickedEvent);
             }
@@ -39,56 +73,29 @@ namespace TD.HomeScreen.BottomBar
 
         private void OnDisable()
         {
-            foreach (var btn in _footerButtons)
+            foreach (var btn in _buttons)
             {
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
+            
+            indicator.transform.DOKill();
         }
         
         private void OnButtonClickedEvent(BottomBarButton buttonClicked)
         {
-            if (_footerButtons.Contains(buttonClicked))
-            {
-                if (_buttonSelected == buttonClicked)
-                {
-                    _buttonSelected = null;
-                    _currentSlot = null;
-
-                    foreach (var btn in _footerButtons)
-                    {
-                        btn.SetSelect(false);
-                    }
-
-                    indicator.SetActive(false);
-
-                    return;
-                }
-
-                _buttonSelected = buttonClicked;
-
-                foreach (var btn in _footerButtons)
-                {
-                    btn.SetSelect(_buttonSelected == btn);
-                }
-
-                MoveIndicator();
-            }
+            SelectButton(buttonClicked);
         }
 
-        private void MoveIndicator()
+        private void MoveIndicator(Transform target)
         {
-            if (_buttonSelected == null) return;
-            if (_currentSlot == _buttonSelected.gameObject) return;
-
-            _currentSlot = _buttonSelected.gameObject;
-
             indicator.SetActive(true);
             indicator.transform.DOKill();
-            indicator.transform.DOMoveX(_currentSlot.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
+            indicator.transform.DOMoveX(target.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
             {
-                indicator.transform.position = new Vector3(_currentSlot.transform.position.x,
-                                                            indicator.transform.position.y,
-                                                            indicator.transform.position.z);
+                indicator.transform.position = new Vector3(
+                    target.transform.position.x, 
+                    indicator.transform.position.y,
+                    indicator.transform.position.z);
             });
         }
     }
