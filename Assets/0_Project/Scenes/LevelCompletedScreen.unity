@@ -1030,9 +1030,17 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.minScalar
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 4600110704138701968, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6066337017638334016, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
       propertyPath: m_Name
       value: MainReward
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016407180860179624, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
