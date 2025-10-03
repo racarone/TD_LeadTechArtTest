@@ -986,6 +986,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: RotationModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805845205187010395, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6066337017638334016, guid: 3d3111c31a73b8443939ddc865ce52db, type: 3}
       propertyPath: m_Name
       value: MainReward
